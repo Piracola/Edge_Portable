@@ -8,7 +8,10 @@
       "architecture": "x64",
       "provider": {
         "type": "script",
-        "command": ["python", "scripts/edge_package.py"]
+        "command": [
+          "python",
+          "scripts/edge_package.py"
+        ]
       },
       "version_root": "Chrome-bin",
       "inner_archive": "MSEDGE.7Z",
@@ -20,10 +23,10 @@
       "archive_name": "Edge_Portable_Win64_{version}_{date}.7z",
       "release": {
         "tag": "v{version}",
-        "title": "Edge Portable v{version}",
+        "title": "Edge {version}",
         "asset_match": "edge",
         "version_pattern": "Edge\\s*版本[:：]\\s*(\\d+\\.\\d+\\.\\d+\\.\\d+)",
-        "body": "自动构建的 Microsoft Edge 便携版\n解压后即可使用，数据文件存储在同级文件夹下\n官方发行说明 / Official Release Notes: https://learn.microsoft.com/zh-cn/deployedge/microsoft-edge-release-notes\n\n构建时间: {date}\nEdge 版本: {version}\n"
+        "body": "自动构建的 Microsoft Edge 便携版，集成 Chrome++ 便携化增强组件。\n\n## 版本\n- Edge 版本: {version}\n\n## 使用说明\n- 解压到任意目录，双击 `开始.bat` 创建桌面快捷方式。\n- 用户数据保存在与 `Edge` 文件夹同级的 `Data`、`Cache` 目录，随目录整体移动。\n- 更新时只覆盖 `Edge` 文件夹即可，`Data` 与 `Cache` 不受影响。\n\n## 文件校验\n| 文件 | 大小 | SHA256 |\n| --- | --- | --- |\n| `{archive}` | {size} | `{sha256}` |\n\n## 构建信息\n- 构建时间: {date}\n- Chrome++ 版本: {chrome_plus_version}\n- 构建记录: {run_url}\n- 上游发行说明: https://learn.microsoft.com/zh-cn/deployedge/microsoft-edge-relnote-stable-channel\n- 安全更新说明: https://learn.microsoft.com/zh-cn/deployedge/microsoft-edge-relnotes-security\n"
       }
     }
   }

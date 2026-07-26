@@ -58,7 +58,8 @@ def get_download_info(version):
     file_name = item.get("FileId") or "MicrosoftEdgeSetup.exe"
     if not file_name.lower().endswith(".exe"):
         file_name += ".exe"
-    return item.get("Url"), file_name
+    # Hashes.Sha256 is base64-encoded; the builder normalizes it to hex.
+    return item.get("Url"), file_name, (item.get("Hashes") or {}).get("Sha256"), item.get("SizeInBytes")
 
 
 def main():
@@ -71,11 +72,16 @@ def main():
     if not version:
         raise RuntimeError("Unable to determine Edge version.")
 
-    url, file_name = get_download_info(version)
+    url, file_name, sha256, size = get_download_info(version)
+    if not sha256:
+        raise RuntimeError("Edge download API did not include a SHA256 hash; refusing to publish an unverifiable download.")
+
     print(json.dumps({
         "version": version,
         "url": url,
         "file_name": file_name,
+        "sha256": sha256,
+        "size": size,
         "verify_ssl": False
     }))
 

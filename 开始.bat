@@ -17,7 +17,7 @@ pause
 exit /b 1
 
 :found
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$s=New-Object -ComObject WScript.Shell; $l=$s.CreateShortcut('%~dp0Edge.lnk'); $l.TargetPath='%EDGE_EXE%'; $l.Arguments='--disable-background-networking'; $l.WorkingDirectory='%~dp0'; $l.IconLocation='%EDGE_EXE%,0'; $l.Save()"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$s=New-Object -ComObject WScript.Shell; $l=$s.CreateShortcut('%~dp0Edge.lnk'); $l.TargetPath='%EDGE_EXE%'; $l.Arguments=''; $l.WorkingDirectory='%~dp0'; $l.IconLocation='%EDGE_EXE%,0'; $l.Save()"
 
 if exist "%~dp0Edge.lnk" (
     echo 快捷方式创建成功

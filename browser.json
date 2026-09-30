@@ -19,6 +19,10 @@
       "chrome_plus_dir": "chrome++",
       "ini_location": "version_dir",
       "version_dll_location": "version_dir",
+      "forbidden_file_names": [
+        "MicrosoftEdgeUpdate.exe",
+        "msedgeupdate.exe"
+      ],
       "start_script": "开始.bat",
       "archive_name": "Edge_Portable_Win64_{version}_{date}.7z",
       "release": {

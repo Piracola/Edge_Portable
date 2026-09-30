@@ -45,7 +45,7 @@
 
 **安装**
 
-1. 下载：访问 [Releases](https://github.com/betacola/Edge_Portable/releases/latest) 获取最新版本（`Edge_Portable_Win64_...7z`）
+1. 下载：访问 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 获取最新版本（`Edge_Portable_Win64_...7z`）
 2. 解压：将压缩包解压至任意位置
 3. 运行 `开始.bat` 文件创建快捷方式
 
@@ -86,7 +86,7 @@ python -m portable_builder --config browser.json --target edge_stable --workdir 
 - Microsoft Edge 浏览器版权归 Microsoft 所有
 - Chrome++ 组件版权归原作者所有
 
-本项目采用 GitHub Actions 自动检查更新，版本号与 Edge 官方 Stable 分支保持一致。查看 [Releases](https://github.com/betacola/Edge_Portable/releases) 获取历史版本。
+本项目采用 GitHub Actions 自动检查更新，版本号与 Edge 官方 Stable 分支保持一致。查看 [Releases](https://github.com/Piracola/Edge_Portable/releases) 获取历史版本。
 
 ---
 
@@ -94,18 +94,18 @@ python -m portable_builder --config browser.json --target edge_stable --workdir 
 
 <sub>Built and maintained by</sub>
 
-**betacola**
+**Piracola**
 
 </div>
 
 <!-- 徽标定义：中文标签需 percent-encode，否则 shields.io 无法解析。 -->
 <!-- 修改标签文字时请一并更新编码，例如 最新版本 -> %E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC -->
-[badge-release]: https://img.shields.io/github/v/release/betacola/Edge_Portable?display_name=tag&style=flat-square&color=1d7c84&label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC
-[badge-downloads]: https://img.shields.io/github/downloads/betacola/Edge_Portable/total?style=flat-square&color=2ea043&label=%E6%80%BB%E4%B8%8B%E8%BD%BD%E9%87%8F
-[badge-build]: https://img.shields.io/github/actions/workflow/status/betacola/Edge_Portable/build.yml?branch=main&style=flat-square&label=%E6%9E%84%E5%BB%BA%E7%8A%B6%E6%80%81
-[badge-license]: https://img.shields.io/github/license/betacola/Edge_Portable?style=flat-square&color=6e7681&label=%E8%AE%B8%E5%8F%AF%E8%AF%81
+[badge-release]: https://img.shields.io/github/v/release/Piracola/Edge_Portable?display_name=tag&style=flat-square&color=1d7c84&label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC
+[badge-downloads]: https://img.shields.io/github/downloads/Piracola/Edge_Portable/total?style=flat-square&color=2ea043&label=%E6%80%BB%E4%B8%8B%E8%BD%BD%E9%87%8F
+[badge-build]: https://img.shields.io/github/actions/workflow/status/Piracola/Edge_Portable/build.yml?branch=main&style=flat-square&label=%E6%9E%84%E5%BB%BA%E7%8A%B6%E6%80%81
+[badge-license]: https://img.shields.io/github/license/Piracola/Edge_Portable?style=flat-square&color=6e7681&label=%E8%AE%B8%E5%8F%AF%E8%AF%81
 
-[link-release]: https://github.com/betacola/Edge_Portable/releases/latest
+[link-release]: https://github.com/Piracola/Edge_Portable/releases/latest
 [link-site]: https://piracola.github.io/ChromiumPortable/edge/
-[link-actions]: https://github.com/betacola/Edge_Portable/actions/workflows/build.yml
-[link-license]: https://github.com/betacola/Edge_Portable/blob/main/LICENSE
+[link-actions]: https://github.com/Piracola/Edge_Portable/actions/workflows/build.yml
+[link-license]: https://github.com/Piracola/Edge_Portable/blob/main/LICENSE

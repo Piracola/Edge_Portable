@@ -7,11 +7,8 @@
       "exe_name": "msedge.exe",
       "architecture": "x64",
       "provider": {
-        "type": "script",
-        "command": [
-          "python",
-          "scripts/edge_package.py"
-        ]
+        "type": "microsoft_edge",
+        "installer_repo": "Bush2021/edge_installer"
       },
       "version_root": "Chrome-bin",
       "inner_archive": "MSEDGE.7Z",

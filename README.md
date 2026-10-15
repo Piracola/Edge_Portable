@@ -28,6 +28,18 @@
 
 目前项目默认同步构建 Stable 版本，如后续扩展其他渠道，将在同一流程内统一维护。
 
+## 快速开始
+
+1. 从 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 下载压缩包，解压到任意位置
+2. 运行 `开始.bat` 创建桌面快捷方式，之后从快捷方式启动
+
+## 更新
+
+1. 关闭浏览器
+2. 删除`Edge`文件夹或重命名为 `Edge old` 以便于回退版本。
+3. 解压新版压缩包内的 `Edge` 文件夹和 `开始.bat`（`Data`、`Cache`保持不动）。
+4. 运行一次 `开始.bat`（刷新 AppHost 里的程序副本）。
+
 ## 功能特性
 
 以下功能均已默认启用，可在 `chrome++.ini` 中调整或关闭：
@@ -41,41 +53,46 @@
 - 发布包不携带 Microsoft Edge Update，因此不会自行替换整套浏览器；扩展和安全组件更新保持可用
 - 更多增强功能请查看 `chrome++.ini`
 
-## 快速开始
+<details>
+<summary><b>设为默认浏览器</b></summary>
 
-**安装**
+Edge 会按主程序所在路径识别自己的渠道身份：只有当路径形如官方安装位置 `...\Microsoft\Edge\Application\...` 时，浏览器才自认为 Stable 渠道，设置页里的「设为默认浏览器」才可用；路径不匹配时会被当成内部渠道，按钮显示「无法将 Canary 渠道设为默认浏览器」并置灰。这是 Edge 自身的判断逻辑，任何便携化方案（包括不注入任何 DLL 的绿色版）都会遇到。
 
-1. 下载：访问 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 获取最新版本（`Edge_Portable_Win64_...7z`）
-2. 解压：将压缩包解压至任意位置
-3. 运行 `开始.bat` 文件创建快捷方式
+本仓库的 `开始.bat` 已经内置了解决方案，原理如下：
 
-**更新**
+1. 在解压根目录下创建 `AppHost\Microsoft\Edge\Application` 文件夹链接（junction），指向真实的 `Edge` 程序文件夹——junction 是 Windows 自带的目录别名，不占用额外磁盘空间，两个路径看到的是同一份文件；
+2. 把程序文件夹根部的 `msedge.exe` 复制一份（版本无关的启动入口）；
+3. 桌面快捷方式指向 `AppHost` 下的入口。
 
-1. 关闭浏览器。
-2. 备份与旧版 Edge 文件夹同级的 `Data` 目录（复制到安全位置）。
-3. 删除旧版 Edge 文件夹。
-4. 解压新版 Edge 文件夹到同级目录。
-5. 把备份的 `Data` 放回新版 Edge 文件夹旁边。
+这样浏览器看到的路径恢复了官方形态，渠道识别为 Stable，默认浏览器设置恢复正常。`开始.bat` 每次运行都会重建链接，便携版文件夹整体搬动后重跑一次即可。
 
-**更改数据目录位置**
+使用注意：
 
-数据目录的位置由 `chrome++.ini` 里的 `data_dir` 和 `cache_dir` 两行决定。注意 Edge 的主程序在版本子目录里，所以这个文件在 `Edge\<版本号>\` 下（和 `msedge.exe` 放在一起），默认值为 `%app%\..\..\Data` 和 `%app%\..\..\Cache`——比 Chrome / Helium 多退一级，才能落到 `Edge` 文件夹旁边。想放到别的位置，改这两行后重启浏览器即可，目录会自动创建。
+- **请始终从快捷方式启动**。若直接运行 `Edge\<版本号>\msedge.exe`，渠道识别会退回旧行为；
+- `AppHost` 文件夹为自动生成物，删除后重跑 `开始.bat` 即可恢复；
+- 想验证是否生效：打开 `edge://version`，版本号后面的括号内没有「internal」字样即为正常。
 
-值既可以写绝对路径（如 `data_dir=D:\BrowserData`），也可以用 `%app%` 加相对层数。要注意这个文件是 **UTF-16 编码**，用记事本编辑后另存时请把编码选成「Unicode」，否则浏览器读不到配置、设置会静默失效。版本升级后子目录名会变，届时需要在新版本目录里重新改一次。
+</details>
 
-默认路径本来就会跟着程序走，整个文件夹一起搬动不需要改这里；只有想把数据放到程序外面（比如放在空间更大的分区）时才需要改。
+<details>
+<summary><b>更改数据目录位置</b></summary>
 
-**卸载**
+数据目录的位置由 `chrome++.ini` 里的 `data_dir` 和 `cache_dir` 两行决定，值支持绝对路径，目录会自动创建。注意这个文件有两份、且是 **UTF-16 编码**（记事本另存时选「Unicode」）：
 
-删除 Edge 文件夹即可完成卸载（便携，不写注册表）。
+- `Edge\<版本号>\chrome++.ini`——直接从版本目录启动时读取；
+- `Edge\chrome++.ini`——从桌面快捷方式（AppHost 路径）启动时读取，由 `开始.bat` 维护。
 
-**本地构建**（Windows + Python 3，需将 `ChromiumPortable` 检出到同级目录）
+只从快捷方式启动的话改第二份即可；两份都改会互不影响。默认值本就跟着程序走，整个文件夹搬动不需要改，只有想把数据放到程序外（比如另一个分区）时才需要动它。
 
-```powershell
-python -m pip install requests
-$env:PYTHONPATH="..\ChromiumPortable"
-python -m portable_builder --config browser.json --target edge_stable --workdir . build
-```
+</details>
+
+## 卸载
+
+删除解压根目录即可，便携版不写注册表。若之前设置过默认浏览器，先在 Windows 设置中改回原浏览器。
+
+## 本地构建
+
+本地构建由主仓库的图形构建器完成，见 [ChromiumPortable](https://github.com/Piracola/ChromiumPortable)。
 
 ## 致谢
 
@@ -92,9 +109,6 @@ python -m portable_builder --config browser.json --target edge_stable --workdir 
 本项目源码遵循 MIT 许可证。
 
 - Microsoft Edge 浏览器版权归 Microsoft 所有
-- Chrome++ 组件版权归原作者所有
-
-本项目采用 GitHub Actions 自动检查更新，版本号与 Edge 官方 Stable 分支保持一致。查看 [Releases](https://github.com/Piracola/Edge_Portable/releases) 获取历史版本。
 
 ---
 

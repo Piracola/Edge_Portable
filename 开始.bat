@@ -20,14 +20,14 @@ pause
 exit /b 1
 
 :found
-rem 把 msedge.exe 与 version.dll 复制到 Edge 根目录（junction 顶层）：
-rem 快捷方式经 AppHost 启动时 exe 位于 junction 顶层，相邻的 version.dll
-rem 与 chrome++.ini（junction 目标 Edge 根目录）才能被找到。
+rem Copy msedge.exe / version.dll to the Edge root (junction top):
+rem the shortcut starts the exe at the junction top, so version.dll and
+rem chrome++.ini (junction target = Edge root) must sit next to it.
 if not exist "%APP_DIR%\msedge.exe" copy /y "%EDGE_EXE%" "%APP_DIR%\msedge.exe" >nul
 if not exist "%APP_DIR%\version.dll" copy /y "%VERSION_DIR%\version.dll" "%APP_DIR%\version.dll" >nul
 
-rem 生成 Edge 根目录的 chrome++.ini（UTF-16）：以版本目录里的 ini 为底稿，
-rem data_dir/cache_dir 从版本目录形态（上跳两级）改为 junction 顶层形态（上跳四级）。
+rem Generate the Edge-root chrome++.ini (UTF-16) from the version-dir copy:
+rem data_dir/cache_dir go from two levels up (version dir) to four (junction top).
 if not exist "%APP_DIR%\chrome++.ini" (
     if not exist "%VERSION_DIR%\chrome++.ini" (
         echo 未找到 %VERSION_DIR%\chrome++.ini
@@ -37,7 +37,7 @@ if not exist "%APP_DIR%\chrome++.ini" (
     powershell -NoProfile -ExecutionPolicy Bypass -Command "$t=[IO.File]::ReadAllText($env:VERSION_DIR + '\chrome++.ini'); $t=$t.Replace('data_dir=%%app%%\..\..\Data','data_dir=%%app%%\..\..\..\..\Data').Replace('cache_dir=%%app%%\..\..\Cache','cache_dir=%%app%%\..\..\..\..\Cache'); [IO.File]::WriteAllText($env:APP_DIR + '\chrome++.ini', $t, [Text.Encoding]::Unicode)"
 )
 
-rem 每次运行重建 junction（目标是绝对路径，文件夹搬动后即失效，重建即恢复）。
+rem Rebuild the junction every run (absolute target breaks after moving the folder).
 if exist "%JUNCTION%\" rmdir "%JUNCTION%"
 mkdir "%HOST_DIR%\Microsoft\Edge" 2>nul
 mklink /J "%JUNCTION%" "%APP_DIR%" >nul
@@ -47,8 +47,8 @@ if not exist "%JUNCTION%\msedge.exe" (
     exit /b 1
 )
 
-rem 快捷方式指向 junction 顶层的版本无关入口（路径形态与官方安装一致），
-rem Edge 据此把自己识别为 Stable 渠道，默认浏览器设置页面才可用。
+rem Shortcut targets the version-agnostic entry at the junction top; the path
+rem shape then matches an official install and Edge identifies as Stable.
 powershell -NoProfile -ExecutionPolicy Bypass -Command "$s=New-Object -ComObject WScript.Shell; $l=$s.CreateShortcut('%~dp0Edge.lnk'); $l.TargetPath='%JUNCTION%\msedge.exe'; $l.Arguments=''; $l.WorkingDirectory='%~dp0'; $l.IconLocation='%JUNCTION%\msedge.exe,0'; $l.Save()"
 
 if exist "%~dp0Edge.lnk" (

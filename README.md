@@ -24,13 +24,13 @@
 
 ## 项目简介
 
-本项目全自动构建，每天定时检查 Microsoft 官方是否有最新 Edge 离线安装包更新，集成 Chrome++ 组件并封装为便携版。项目预配置了自定义增强功能，具体配置请查看 `chrome++.ini`。
+本项目全自动构建，每天定时检查 Microsoft 官方是否有最新 Edge 离线安装包更新，集成 Chrome++ 组件并封装为便携版，同时提供 x64 与 ARM64 两种架构。项目预配置了自定义增强功能，具体配置请查看 `chrome++.ini`。
 
 目前项目默认同步构建 Stable 版本，如后续扩展其他渠道，将在同一流程内统一维护。
 
 ## 快速开始
 
-1. 从 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 下载压缩包，解压到任意位置
+1. 从 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 下载压缩包（`Edge_Portable_Win64_...7z` 为 x64，`Edge_Portable_arm64_...7z` 为 Windows on Arm），解压到任意位置
 2. 运行 `开始.bat` 生成 `Edge.lnk` 快捷方式，之后从快捷方式启动
 
 ## 更新

@@ -9,33 +9,43 @@
 [![构建状态][badge-build]][link-actions]
 [![许可证][badge-license]][link-license]
 
-**[⬇ 下载最新版本][link-release]** · **[📖 使用说明与常见问题][link-site]** · [更多设置与构建细节](docs/DETAILS.md)
+**语言 / Language:** **简体中文** · [English](README.en.md)
+
+**[⬇ 下载最新版本][link-release]** · **[📖 使用说明与常见问题][link-site]**
 
 </div>
 
 ## 项目简介
 
-本项目每天定时检查 Microsoft 官方 Edge 离线安装包更新，集成 Chrome++ 并封装为便携版，同时提供 x64 与 ARM64 两种架构。
+本项目每天定时检查 Microsoft 官方 Edge 离线安装包更新，集成 Chrome++ 并封装为便携版，同时提供 x64 与 ARM64 两种架构。目前只构建 Stable 渠道，以后扩展其他渠道时会继续放在同一套流程里维护。
 
 项目预配置了自定义增强功能，具体配置请查看 `chrome++.ini`。
 
-构建系统由 [ChromiumPortable](https://github.com/Piracola/ChromiumPortable) 提供，本仓库保存构建配置。
+构建系统由 [ChromiumPortable](https://github.com/Piracola/ChromiumPortable) 提供，本仓库只保存构建配置；本地构建步骤见核心仓的[开发文档](https://github.com/Piracola/ChromiumPortable/blob/main/docs/DEVELOPMENT.md)。
 
 ## 快速开始
 
 1. 从 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 下载压缩包（`Edge_Portable_Win64_...7z` 为 x64，`Edge_Portable_arm64_...7z` 为 Windows on Arm），解压到任意位置。
 2. 运行 `开始.bat` 生成 `Edge.lnk` 快捷方式，之后从快捷方式启动。
 
+## 为什么解压出来是 Microsoft\Edge\Application 这样的目录
+
+Edge 按主程序的路径判断自己的渠道身份：只有路径形如官方安装位置 `...\Microsoft\Edge\Application\...` 时，浏览器才认为自己是 Stable 渠道，设置页里的「设为默认浏览器」才可用。路径不匹配时它会被当成内部渠道，按钮显示「无法将 Canary 渠道设为默认浏览器」并置灰。这是 Edge 自身的判断逻辑，任何便携化方案（包括不注入任何 DLL 的绿色版）都会碰到。
+
+所以压缩包不做别名、副本或路径补丁，而是直接按官方形态摆放：版本目录就装在 `Microsoft\Edge\Application\` 下面，`msedge.exe` 和 `chrome++.ini` 都在版本目录里。这样 Edge 看到的就是官方那条路径，渠道识别为 Stable，默认浏览器设置恢复正常；整个方案里也没有依赖绝对路径的东西，文件夹搬家、改名都不用额外处理。
+
+想验证是否生效：打开 `edge://version`，版本号后面的括号里没有「internal」字样即为正常。
+
 ## 更新
 
 1. 关闭浏览器。
 2. 删除 `Microsoft` 文件夹或重命名为 `Microsoft old` 以便回退版本。
 3. 解压新版压缩包内的 `Microsoft` 文件夹和 `开始.bat`，`Data`、`Cache` 保持不动。
-4. 运行一次 `开始.bat`，快捷方式里带着版本号，需要重新指向新版本。
+4. 运行一次 `开始.bat`，使快捷方式指向新版本。
 
 ## 功能特性
 
-以下功能均已默认启用，可在 `chrome++.ini` 中调整或关闭：
+以下增强均已集成，除注明外默认启用，可在 `chrome++.ini` 中调整或关闭：
 
 - 用户数据及缓存均存储于解压根目录的 `Data` 和 `Cache` 文件夹
 - 双击关闭标签页、保留最后一个标签页
@@ -52,19 +62,21 @@
 
 值支持绝对路径，目录会自动创建。注意这个文件是 **UTF-16 编码**（记事本另存时选「Unicode」）。
 
-默认路径本就跟着程序走，整个文件夹搬动不需要改，只有想把数据放到程序外（比如另一个分区）时才需要动它。
+默认路径相对于主程序目录，移动整个文件夹不需要修改。需要将数据存放到程序目录之外时，可改用绝对路径。
 
 ## 卸载
 
 删除解压根目录即可，便携版不写注册表。若之前设置过默认浏览器，先在 Windows 设置中改回原浏览器。
 
-## 其他文档
+## 相关项目
 
-压缩包目录形态的成因、验证方法与本地构建说明见 [docs/DETAILS.md](docs/DETAILS.md)。同系列项目见 [Chrome-Portable](https://github.com/Piracola/Chrome-Portable) 与 [Helium_Portable](https://github.com/Piracola/Helium_Portable)。
+- [ChromiumPortable](https://github.com/Piracola/ChromiumPortable)：通用构建核心
+- [Chrome-Portable](https://github.com/Piracola/Chrome-Portable)：同系列 Google Chrome 便携版
+- [Helium_Portable](https://github.com/Piracola/Helium_Portable)：同系列 Helium 便携版
 
 ## 致谢
 
-本项目基于以下优秀开源项目构建：
+本项目使用以下开源项目与上游服务：
 
 | 项目 | 说明 |
 | --- | --- |

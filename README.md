@@ -28,13 +28,16 @@
 1. 从 [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) 下载压缩包（`Edge_Portable_Win64_...7z` 为 x64，`Edge_Portable_arm64_...7z` 为 Windows on Arm），解压到任意位置。
 2. 运行 `开始.bat` 生成 `Edge.lnk` 快捷方式，之后从快捷方式启动。
 
-## 为什么解压出来是 Microsoft\Edge\Application 这样的目录
+<details>
+<summary>为什么解压出来是 Microsoft\Edge\Application 这样的目录</summary>
 
 Edge 按主程序的路径判断自己的渠道身份：只有路径形如官方安装位置 `...\Microsoft\Edge\Application\...` 时，浏览器才认为自己是 Stable 渠道，设置页里的「设为默认浏览器」才可用。路径不匹配时它会被当成内部渠道，按钮显示「无法将 Canary 渠道设为默认浏览器」并置灰。这是 Edge 自身的判断逻辑，任何便携化方案（包括不注入任何 DLL 的绿色版）都会碰到。
 
 所以压缩包不做别名、副本或路径补丁，而是直接按官方形态摆放：版本目录就装在 `Microsoft\Edge\Application\` 下面，`msedge.exe` 和 `chrome++.ini` 都在版本目录里。这样 Edge 看到的就是官方那条路径，渠道识别为 Stable，默认浏览器设置恢复正常；整个方案里也没有依赖绝对路径的东西，文件夹搬家、改名都不用额外处理。
 
 想验证是否生效：打开 `edge://version`，版本号后面的括号里没有「internal」字样即为正常。
+
+</details>
 
 ## 更新
 
@@ -56,13 +59,16 @@ Edge 按主程序的路径判断自己的渠道身份：只有路径形如官方
 - 发布包不携带 Microsoft Edge Update，因此不会自行替换整套浏览器；扩展和安全组件更新保持可用
 - 更多增强功能请查看 `chrome++.ini`
 
-## 更改数据目录位置
+<details>
+<summary>更改数据目录位置</summary>
 
 数据目录的位置由 `Microsoft\Edge\Application\<版本号>\chrome++.ini` 里的 `data_dir` 和 `cache_dir` 两行决定，默认值是 `%app%\..\..\..\..\Data` 和 `%app%\..\..\..\..\Cache`（`%app%` 代表 `msedge.exe` 所在目录，上跳四级正好落到解压根目录）。
 
 值支持绝对路径，目录会自动创建。注意这个文件是 **UTF-16 编码**（记事本另存时选「Unicode」）。
 
 默认路径相对于主程序目录，移动整个文件夹不需要修改。需要将数据存放到程序目录之外时，可改用绝对路径。
+
+</details>
 
 ## 卸载
 
@@ -74,7 +80,8 @@ Edge 按主程序的路径判断自己的渠道身份：只有路径形如官方
 - [Chrome-Portable](https://github.com/Piracola/Chrome-Portable)：同系列 Google Chrome 便携版
 - [Helium_Portable](https://github.com/Piracola/Helium_Portable)：同系列 Helium 便携版
 
-## 致谢
+<details>
+<summary>致谢</summary>
 
 本项目使用以下开源项目与上游服务：
 
@@ -83,6 +90,8 @@ Edge 按主程序的路径判断自己的渠道身份：只有路径形如官方
 | [Bush2021/chrome\_plus](https://github.com/Bush2021/chrome_plus) | 提供核心便携化组件（Chrome++ / version.dll / setdll） |
 | [Bush2021/edge_installer](https://github.com/Bush2021/edge_installer) | Edge 版本兜底查询 |
 | Microsoft Edge CDP API | Edge 官方版本查询与安装包下载 |
+
+</details>
 
 ## 许可证
 

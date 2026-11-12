@@ -28,13 +28,16 @@ The build system is provided by [ChromiumPortable](https://github.com/Piracola/C
 1. Download an archive from [Releases](https://github.com/Piracola/Edge_Portable/releases/latest) — `Edge_Portable_Win64_...7z` for x64, `Edge_Portable_arm64_...7z` for Windows on Arm — and extract it anywhere.
 2. Run `开始.bat` to create the `Edge.lnk` shortcut inside the extraction folder, then launch from that shortcut.
 
-## Why does the archive extract into a Microsoft\Edge\Application folder?
+<details>
+<summary>Why does the archive extract into a Microsoft\Edge\Application folder?</summary>
 
 Edge derives its channel identity from the main executable's path. Only when the path looks like the official install location, `...\Microsoft\Edge\Application\...`, does the browser consider itself the Stable channel and offer "Set as default browser". On a mismatched path it treats itself as an internal channel and greys the button out with a message saying the Canary channel cannot be set as default. That judgement lives in Edge itself, so every portability approach runs into it — including a no-install build that injects no DLL at all.
 
 So this archive uses no aliases, copies, or path patches: it lays things out exactly like an official install. The version folder sits under `Microsoft\Edge\Application\`, with `msedge.exe` and `chrome++.ini` inside it. Edge then sees the official path, identifies as Stable, and default-browser settings work again. Nothing in the layout depends on an absolute path either, so moving or renaming the whole folder needs no extra work.
 
 To confirm it took effect, open `edge://version`: no "internal" tag in the parentheses after the version number means you're good.
+
+</details>
 
 ## Updating
 
@@ -56,13 +59,16 @@ Everything below is included and enabled by default unless noted; adjust or swit
 - The release carries no Microsoft Edge Update, so the browser never replaces itself with a full install; extension and security component updates keep working
 - More enhancements are documented in `chrome++.ini`
 
-## Changing the data directory
+<details>
+<summary>Changing the data directory</summary>
 
 The location is set by the `data_dir` and `cache_dir` lines in `Microsoft\Edge\Application\<version>\chrome++.ini`. Defaults are `%app%\..\..\..\..\Data` and `%app%\..\..\..\..\Cache`, where `%app%` is the folder holding `msedge.exe` — four levels up lands exactly on the extraction root.
 
 Absolute paths are accepted and directories are created as needed. Note that the file is **UTF-16 encoded** (pick "Unicode" when saving from Notepad).
 
 Because the defaults are relative to the program folder, moving the whole tree needs no edits. Switch to an absolute path if you want data stored outside the program folder.
+
+</details>
 
 ## Uninstalling
 
@@ -74,13 +80,16 @@ Delete the extraction root. The portable build writes nothing to the registry. I
 - [Chrome-Portable](https://github.com/Piracola/Chrome-Portable): the Google Chrome portable build
 - [Helium_Portable](https://github.com/Piracola/Helium_Portable): the Helium portable build
 
-## Credits
+<details>
+<summary>Credits</summary>
 
 | Project | Role |
 | --- | --- |
 | [Bush2021/chrome\_plus](https://github.com/Bush2021/chrome_plus) | Core portability components (Chrome++ / version.dll / setdll) |
 | [Bush2021/edge_installer](https://github.com/Bush2021/edge_installer) | Fallback version lookup for Edge |
 | Microsoft Edge CDP API | Official version lookup and installer download |
+
+</details>
 
 ## License
 

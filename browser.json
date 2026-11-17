@@ -22,6 +22,7 @@
       "chrome_plus_dir": "chrome++",
       "ini_location": "version_dir",
       "version_dll_location": "version_dir",
+      "inject_target": "msedge_elf.dll",
       "forbidden_file_names": [
         "MicrosoftEdgeUpdate.exe",
         "msedgeupdate.exe"
@@ -49,6 +50,7 @@
       "chrome_plus_dir": "chrome++",
       "ini_location": "version_dir",
       "version_dll_location": "version_dir",
+      "inject_target": "msedge_elf.dll",
       "forbidden_file_names": [
         "MicrosoftEdgeUpdate.exe",
         "msedgeupdate.exe"

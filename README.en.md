@@ -51,12 +51,11 @@ To confirm it took effect, open `edge://version`: no "internal" tag in the paren
 Everything below is included and enabled by default unless noted; adjust or switch it off in `chrome++.ini`:
 
 - Profile data and cache live in the `Data` and `Cache` folders at the extraction root
-- Double-click a tab to close it; the last tab stays open
-- Scroll the mouse wheel over the tab strip to switch tabs
+- Double-click a tab to close it
 - Open whatever sits in the address bar, or a bookmark, in a new foreground tab
-- View saved passwords without going through the Windows sign-in prompt
-- Optional extras: close tabs with the right mouse button, boss key, translate shortcut, key remapping, start/exit hooks and more (off by default; see `chrome++.ini`)
 - The release carries no Microsoft Edge Update, so the browser never replaces itself with a full install; extension and security component updates keep working
+- Optional extras: close tabs with the right mouse button, boss key, translate shortcut, key remapping, start/exit hooks and more (off by default; see `chrome++.ini`)
+- The **other tab-strip enhancements do not work on Edge** (wheel over the tab strip to switch tabs, keeping the last tab open, and so on): Chrome++ implements them against Chrome's own UI structure, and upstream has no fix for that yet
 - More enhancements are documented in `chrome++.ini`
 
 <details>

@@ -17,7 +17,7 @@
 
 ## 项目简介
 
-本项目每天定时检查 Microsoft 官方 Edge 离线安装包更新，集成 Chrome++ 并封装为便携版，同时提供 x64 与 ARM64 两种架构。目前只构建 Stable 渠道，以后扩展其他渠道时会继续放在同一套流程里维护。
+本项目由 [ChromiumPortable](https://github.com/Piracola/ChromiumPortable) 每天定时检查 Microsoft 官方 Edge 离线安装包更新，发现新版本后向本仓库派发构建，再由 GitHub Actions 集成 Chrome++ 并封装为便携版，同时提供 x64 与 ARM64 两种架构。目前只构建 Stable 渠道，以后扩展其他渠道时会继续放在同一套流程里维护。
 
 项目预配置了自定义增强功能，具体配置请查看 `chrome++.ini`。
 

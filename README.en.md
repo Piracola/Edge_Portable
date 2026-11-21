@@ -17,7 +17,7 @@ Portable Microsoft Edge with Chrome++ integrated, built automatically by GitHub 
 
 ## About
 
-The project checks Microsoft's official Edge offline installers on a daily schedule, integrates Chrome++, and repackages the result as a portable build in both x64 and ARM64. Only the Stable channel is built for now; any channel added later will be maintained through the same pipeline.
+[ChromiumPortable](https://github.com/Piracola/ChromiumPortable) checks Microsoft's official Edge offline installers on a daily schedule and dispatches a build here when a new version appears; GitHub Actions then integrates Chrome++ and repackages the result as a portable build in both x64 and ARM64. Only the Stable channel is built for now; any channel added later will be maintained through the same pipeline.
 
 A set of custom enhancements comes preconfigured — see `chrome++.ini` for the details.
 
